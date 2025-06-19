@@ -19,13 +19,13 @@ function setup() {
 function draw() {
     background(255);
     
-    // Draw current letter
+    
     textSize(120);
     textAlign(CENTER, CENTER);
     fill(currentColor);
     text(currentLetter, width/2 - 100, height/2);
     
-    // Draw START button
+    
     fill('#4CAF50');
     rect(startButtonX, startButtonY, buttonWidth, buttonHeight, 10);
     fill(255);
@@ -33,7 +33,7 @@ function draw() {
     textSize(20);
     text("START", startButtonX + buttonWidth/2, startButtonY + buttonHeight/2);
     
-    // Draw STOP button
+    
     fill('#dc2626');
     rect(stopButtonX, stopButtonY, buttonWidth, buttonHeight, 10);
     fill(255);
@@ -42,11 +42,11 @@ function draw() {
     text("STOP", stopButtonX + buttonWidth/2, stopButtonY + buttonHeight/2);
     
     if (isAnimating && millis() - lastSwitchTime >= 500) {
-        // Pick a random letter
+        
         var randomIndex = Math.floor(random(letters.length));
         currentLetter = letters[randomIndex];
         
-        // Generate new random color
+        
         currentColor = color(random(255), random(255), random(255));
         
         lastSwitchTime = millis();
