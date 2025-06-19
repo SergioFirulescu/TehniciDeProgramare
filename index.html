@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="sumaMatrici.js"></script>
+    <style>
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        input[type="checkbox"] {
+            accent-color: rgb(79, 70, 229);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-8" onload="initializeRandomMatrices()">
+    <div class="max-w-6xl mx-auto">
+        
+        <div class="flex justify-center items-center space-x-8">
+            <div class="grid grid-cols-3 gap-2 matrix1">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-green-300 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-purple-200 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-blue-300 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-gray-400 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-purple-400 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-yellow-400 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-red-300 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-green-400 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-gray-300 border-2 border-gray-300 rounded">
+            </div>
+
+            <div class="text-6xl font-bold text-gray-600">+</div>
+
+            <div class="grid grid-cols-3 gap-2 matrix2">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-pink-400 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-orange-400 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-red-400 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-blue-200 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-yellow-200 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-red-200 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-pink-200 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-red-400 border-2 border-gray-300 rounded">
+                <input type="number" class="w-20 h-20 text-center text-2xl font-bold bg-gray-200 border-2 border-gray-300 rounded">
+            </div>
+
+            <div class="text-6xl font-bold text-gray-600">=</div>
+
+            <div class="grid grid-cols-3 gap-2 result-matrix">
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-yellow-200 border-2 border-gray-300 rounded">0</div>
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-orange-400 border-2 border-gray-300 rounded">0</div>
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-red-900 text-white border-2 border-gray-300 rounded">0</div>
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-blue-600 text-white border-2 border-gray-300 rounded">0</div>
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-purple-600 text-white border-2 border-gray-300 rounded">0</div>
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-orange-500 border-2 border-gray-300 rounded">0</div>
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-blue-200 border-2 border-gray-300 rounded">0</div>
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-red-400 border-2 border-gray-300 rounded">0</div>
+                <div class="w-20 h-20 flex items-center justify-center text-2xl font-bold bg-blue-600 text-white border-2 border-gray-300 rounded">0</div>
+            </div>
+        </div>
+
+        <div class="text-center mt-8">
+            <button onclick="calculateSum()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                Calculate Sum
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function getRandomNumber(min = 1, max = 20) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function initializeRandomMatrices() {
+            document.querySelectorAll('.matrix1 input, .matrix2 input').forEach(input => {
+                input.value = getRandomNumber();
+            });
+
+            calculateSum();
+        }
+
+        function calculateSum() {
+            function getMatrixValues(matrixClass) {
+                const matrix = [[], [], []];
+                const inputs = document.querySelectorAll(`.${matrixClass} input`);
+                
+                inputs.forEach((input, index) => {
+                    const row = Math.floor(index / 3);
+                    const col = index % 3;
+                    matrix[row][col] = input.value === '' ? 0 : Number(input.value);
+                });
+                
+                return matrix;
+            }
+
+            const matrix1 = getMatrixValues('matrix1');
+            const matrix2 = getMatrixValues('matrix2');
+                        
+            const resultMatrix = sumaMatrici(matrix1, matrix2);
+
+            if (resultMatrix) {
+                const resultDivs = document.querySelectorAll('.result-matrix div');
+                resultDivs.forEach((div, index) => {
+                    const row = Math.floor(index / 3);
+                    const col = index % 3;
+                    div.textContent = resultMatrix[row][col];
+                });
+            }
+        }
+    </script>
+</body>
+</html> 
