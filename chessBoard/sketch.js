@@ -26,8 +26,8 @@ function Piece(row, col, isWhite) {
 function setup() {
     createCanvas(board.size, board.size);
     
-    // Create white pieces
-    // Back row (row 7)
+    
+    
     pieces.push(new Piece(7, 0, true)); // Rook
     pieces.push(new Piece(7, 1, true)); // Knight
     pieces.push(new Piece(7, 2, true)); // Bishop
@@ -37,13 +37,13 @@ function setup() {
     pieces.push(new Piece(7, 6, true)); // Knight
     pieces.push(new Piece(7, 7, true)); // Rook
     
-    // Pawns (row 6)
+    
     for(var col = 0; col < 8; col++) {
         pieces.push(new Piece(6, col, true));
     }
     
-    // Create black pieces
-    // Back row (row 0)
+    
+    
     pieces.push(new Piece(0, 0, false)); // Rook
     pieces.push(new Piece(0, 1, false)); // Knight
     pieces.push(new Piece(0, 2, false)); // Bishop
@@ -53,7 +53,7 @@ function setup() {
     pieces.push(new Piece(0, 6, false)); // Knight
     pieces.push(new Piece(0, 7, false)); // Rook
     
-    // Pawns (row 1)
+    
     for(var col = 0; col < 8; col++) {
         pieces.push(new Piece(1, col, false));
     }
